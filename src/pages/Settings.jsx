@@ -1,3 +1,4 @@
+import { User, Database, Download, Upload, Trash2, Check, Sun, Moon } from 'lucide-react'
 import XLSXStyle from 'xlsx-js-style'
 import { getCategoryByKey } from '../utils/categories'
 import { useState } from 'react'
@@ -6,7 +7,7 @@ import { useTransactions } from '../hooks/useTransactions'
 import { storage } from '../utils/storage'
 import { NEPAL_DISTRICTS } from '../utils/categories'
 import { motion, AnimatePresence } from 'framer-motion'
-import { User, Database, Download, Upload, Trash2, Check } from 'lucide-react'
+
 
 const SAMPLE_TRANSACTIONS = [
   { type: 'income',  amount: 65000, category: 'salary',        merchant: 'Monthly Salary',      description: 'Office salary', date: thisMonth(1)  },
@@ -49,7 +50,7 @@ function GearDoodle() {
   )
 }
 
-export default function Settings() {
+export default function Settings({ theme, onToggleTheme }) {
   const { profile, updateProfile } = useProfile()
   const { transactions, addTransaction } = useTransactions()
   const [saved, setSaved] = useState(false)
@@ -422,6 +423,34 @@ export default function Settings() {
           )}
         </div>
       </Section>
+      {/* Appearance */}
+<Section icon={<Sun size={15} />} title="Appearance">
+  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', background: 'var(--bg-elevated)', border: '1px solid var(--border-subtle)', borderRadius: 6 }}>
+    <div>
+      <p style={{ fontSize: 13, fontWeight: 500, color: 'var(--text-primary)', marginBottom: 2 }}>
+        {theme === 'light' ? 'Light Mode' : 'Dark Mode'}
+      </p>
+      <p style={{ fontSize: 11, color: 'var(--text-muted)' }}>
+        {theme === 'light' ? 'Switch to dark for night use' : 'Switch to light for day use'}
+      </p>
+    </div>
+    <button
+      onClick={onToggleTheme}
+      style={{
+        display: 'flex', alignItems: 'center', gap: 7,
+        padding: '8px 16px', borderRadius: 4,
+        border: '1px solid var(--border-default)',
+        background: 'var(--bg-card)',
+        color: 'var(--text-secondary)',
+        fontSize: 12, fontFamily: 'var(--font-body)',
+        fontWeight: 500, cursor: 'pointer',
+      }}
+    >
+      {theme === 'light' ? <Moon size={13} strokeWidth={1.6} /> : <Sun size={13} strokeWidth={1.6} />}
+      {theme === 'light' ? 'Dark mode' : 'Light mode'}
+    </button>
+  </div>
+</Section>
 
       {/* Data Management */}
       <Section icon={<Database size={15} />} title="Data Management">

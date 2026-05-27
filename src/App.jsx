@@ -31,7 +31,7 @@ export default function App() {
               <Route path="budget" element={<Budget />} />
               <Route path="reports" element={<Reports />} />
               <Route path="calendar" element={<CalendarPage />} />
-              <Route path="settings" element={<Settings />} />
+              <Route path="settings" element={<Settings theme={theme} onToggleTheme={toggleTheme} />} />
             </Route>
           </Routes>
         </BrowserRouter>
