@@ -341,9 +341,8 @@ export default function Settings({ theme, onToggleTheme }) {
 
   const handleClearData = () => {
     storage.clear()
-    window.location.reload()
+    window.location.href = '/'
   }
-
   return (
     <div style={{ padding: '36px 40px 60px', maxWidth: 1080, margin: '0 auto' }}>
 
