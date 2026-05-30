@@ -44,7 +44,7 @@ export default function MobileNav({ onAddTransaction }) {
       zIndex: 100,
     }}>
       {/* Left side — 2 items, each flex:1 */}
-      <div style={{ display: 'flex', flex: 2 }}>
+<div style={{ display: 'flex', flex: 3 }}>
         {LEFT_ITEMS.map(item => <NavItem key={item.to} {...item} />)}
       </div>
 
@@ -69,7 +69,7 @@ export default function MobileNav({ onAddTransaction }) {
       </div>
 
       {/* Right side — 3 items, each flex:1 */}
-      <div style={{ display: 'flex', flex: 3 }}>
+<div style={{ display: 'flex', flex: 2 }}>
         {RIGHT_ITEMS.map(item => <NavItem key={item.to} {...item} />)}
       </div>
     </nav>
