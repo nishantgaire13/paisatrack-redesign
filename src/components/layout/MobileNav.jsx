@@ -2,8 +2,8 @@ import { NavLink } from 'react-router-dom'
 import { LayoutDashboard, ArrowLeftRight, Target, BarChart2, Settings, Plus } from 'lucide-react'
 
 const LEFT_ITEMS = [
-  { to: '/',             label: 'Home',    icon: LayoutDashboard },
-  { to: '/transactions', label: 'Txns',    icon: ArrowLeftRight  },
+  { to: '/',             label: 'Home', icon: LayoutDashboard },
+  { to: '/transactions', label: 'Txns', icon: ArrowLeftRight  },
 ]
 
 const RIGHT_ITEMS = [
@@ -14,7 +14,7 @@ const RIGHT_ITEMS = [
 
 function NavItem({ to, label, icon: Icon }) {
   return (
-    <NavLink to={to} end={to === '/'} style={{ flex: 1, textDecoration: 'none' }}>
+    <NavLink to={to} end={to === '/'} style={{ textDecoration: 'none', width: '20%' }}>
       {({ isActive }) => (
         <div style={{
           display: 'flex', flexDirection: 'column',
@@ -41,15 +41,15 @@ export default function MobileNav({ onAddTransaction }) {
       borderTop: '1px solid var(--border-default)',
       display: 'flex',
       alignItems: 'center',
+      justifyContent: 'space-between',
       zIndex: 100,
+      padding: '0 4px',
     }}>
-      {/* Left side — 2 items, each flex:1 */}
-<div style={{ display: 'flex', flex: 3 }}>
-        {LEFT_ITEMS.map(item => <NavItem key={item.to} {...item} />)}
-      </div>
+      {/* Left 2 items */}
+      {LEFT_ITEMS.map(item => <NavItem key={item.to} {...item} />)}
 
-      {/* Center — Add button, fixed width matching 1 nav item */}
-      <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      {/* Center Add button — exact 20% width to match others */}
+      <div style={{ width: '20%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <button
           onClick={onAddTransaction}
           style={{
@@ -68,10 +68,8 @@ export default function MobileNav({ onAddTransaction }) {
         </button>
       </div>
 
-      {/* Right side — 3 items, each flex:1 */}
-<div style={{ display: 'flex', flex: 2 }}>
-        {RIGHT_ITEMS.map(item => <NavItem key={item.to} {...item} />)}
-      </div>
+      {/* Right 3 items */}
+      {RIGHT_ITEMS.map(item => <NavItem key={item.to} {...item} />)}
     </nav>
   )
 }
