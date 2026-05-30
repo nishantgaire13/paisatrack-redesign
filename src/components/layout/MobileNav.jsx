@@ -1,13 +1,35 @@
 import { NavLink } from 'react-router-dom'
 import { LayoutDashboard, ArrowLeftRight, Target, BarChart2, Settings, Plus } from 'lucide-react'
 
-const NAV_ITEMS = [
-  { to: '/',             label: 'Home',     icon: LayoutDashboard },
-  { to: '/transactions', label: 'Txns',     icon: ArrowLeftRight  },
-  { to: '/budget',       label: 'Budget',   icon: Target          },
-  { to: '/reports',      label: 'Reports',  icon: BarChart2       },
-  { to: '/settings',     label: 'Settings', icon: Settings        },
+const LEFT_ITEMS = [
+  { to: '/',             label: 'Home',    icon: LayoutDashboard },
+  { to: '/transactions', label: 'Txns',    icon: ArrowLeftRight  },
 ]
+
+const RIGHT_ITEMS = [
+  { to: '/budget',   label: 'Budget',   icon: Target    },
+  { to: '/reports',  label: 'Reports',  icon: BarChart2 },
+  { to: '/settings', label: 'Settings', icon: Settings  },
+]
+
+function NavItem({ to, label, icon: Icon }) {
+  return (
+    <NavLink to={to} end={to === '/'} style={{ flex: 1, textDecoration: 'none' }}>
+      {({ isActive }) => (
+        <div style={{
+          display: 'flex', flexDirection: 'column',
+          alignItems: 'center', justifyContent: 'center',
+          gap: 3, padding: '8px 0',
+          color: isActive ? 'var(--accent)' : 'var(--text-muted)',
+          transition: 'color 0.15s ease',
+        }}>
+          <Icon size={18} strokeWidth={isActive ? 2.2 : 1.6} />
+          <span style={{ fontSize: 9, fontWeight: isActive ? 600 : 400 }}>{label}</span>
+        </div>
+      )}
+    </NavLink>
+  )
+}
 
 export default function MobileNav({ onAddTransaction }) {
   return (
@@ -20,27 +42,13 @@ export default function MobileNav({ onAddTransaction }) {
       display: 'flex',
       alignItems: 'center',
       zIndex: 100,
-      padding: '0 4px',
     }}>
-      {/* First 2 nav items */}
-      {NAV_ITEMS.slice(0, 2).map(({ to, label, icon: Icon }) => (
-        <NavLink key={to} to={to} end={to === '/'} style={{ flex: 1, textDecoration: 'none' }}>
-          {({ isActive }) => (
-            <div style={{
-              display: 'flex', flexDirection: 'column',
-              alignItems: 'center', justifyContent: 'center',
-              gap: 3, padding: '8px 0',
-              color: isActive ? 'var(--accent)' : 'var(--text-muted)',
-              transition: 'color 0.15s ease',
-            }}>
-              <Icon size={18} strokeWidth={isActive ? 2.2 : 1.6} />
-              <span style={{ fontSize: 9, fontWeight: isActive ? 600 : 400 }}>{label}</span>
-            </div>
-          )}
-        </NavLink>
-      ))}
+      {/* Left side — 2 items, each flex:1 */}
+      <div style={{ display: 'flex', flex: 2 }}>
+        {LEFT_ITEMS.map(item => <NavItem key={item.to} {...item} />)}
+      </div>
 
-      {/* Center Add Button */}
+      {/* Center — Add button, fixed width matching 1 nav item */}
       <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <button
           onClick={onAddTransaction}
@@ -60,23 +68,10 @@ export default function MobileNav({ onAddTransaction }) {
         </button>
       </div>
 
-      {/* Last 3 nav items */}
-      {NAV_ITEMS.slice(2).map(({ to, label, icon: Icon }) => (
-        <NavLink key={to} to={to} end={to === '/'} style={{ flex: 1, textDecoration: 'none' }}>
-          {({ isActive }) => (
-            <div style={{
-              display: 'flex', flexDirection: 'column',
-              alignItems: 'center', justifyContent: 'center',
-              gap: 3, padding: '8px 0',
-              color: isActive ? 'var(--accent)' : 'var(--text-muted)',
-              transition: 'color 0.15s ease',
-            }}>
-              <Icon size={18} strokeWidth={isActive ? 2.2 : 1.6} />
-              <span style={{ fontSize: 9, fontWeight: isActive ? 600 : 400 }}>{label}</span>
-            </div>
-          )}
-        </NavLink>
-      ))}
+      {/* Right side — 3 items, each flex:1 */}
+      <div style={{ display: 'flex', flex: 3 }}>
+        {RIGHT_ITEMS.map(item => <NavItem key={item.to} {...item} />)}
+      </div>
     </nav>
   )
 }
